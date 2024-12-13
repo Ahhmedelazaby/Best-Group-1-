@@ -1,4 +1,16 @@
 import pygame 
 import random
 import sys
-from pygame import sys
+from pygame import mixer 
+
+pygame.init()
+
+screen_width = 400
+screen_height = 600
+screen = pygame.display.set_mode((screen_widht, screen_height))
+pygame.display.set_caption("Car Racing Pro")
+
+mixer.music.load('UA7PCjGMC5Fb.128.mp3')
+mixer.music.play(-1)
+
+
