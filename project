@@ -37,3 +37,14 @@ enemy_car_frequency = 88
 #score
 score = 0
 font = pygame.font.SysFont('Arial', 30)
+
+#images
+player_car_image = pygame.image.load('ahmedwalidplayer_car.png.jpg')
+player_car_image = pygame.transform.scale(player_car_image, (car_width, car_height))
+
+enemy_car_image = pygame.image.load('enemy_page-0001.jpg') 
+enemy_car_image = pygame.transform.scale(enemy_car_image, (enemy_car_width, enemy_car_height))
+
+background_image = pygame.image.load('OIP.jpg')
+background_image = pygame.transform.scale(background_image, (screen_width, screen_height))
+
