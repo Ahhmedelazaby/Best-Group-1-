@@ -48,3 +48,52 @@ enemy_car_image = pygame.transform.scale(enemy_car_image, (enemy_car_width, enem
 background_image = pygame.image.load('OIP.jpg')
 background_image = pygame.transform.scale(background_image, (screen_width, screen_height))
 
+#car object
+player_car = pygame.Rect(player_car_x, player_car_y, car_width, car_heigth)
+
+#list of enemy cars
+enemy_cars = []
+
+#enemy cars class
+class EnemyCar:
+def__init__(self):
+self.x = random.randit(0, screen_width - enemy_car_width)
+self.y = -enemy_car_heigth #start above the screen
+self.speed = random.Rect(self.x, self.y, enemy_car_width, enemy_car_heigth)
+
+def move(self):
+self.rect.y += self.speed
+
+def reset(self):
+self.rect.y = -enemy_car_heigth
+self.rect.x = random.randit(0, screen_width - enemy_car_width)
+
+#function to game over screen
+def game_over():
+font = pygame.font.SysFont("arial", 50)
+text = font.render("GAME OVER", True, RED)
+text_rect = text.get_rect(center=(screen_width // 2, screen_heigth // 3))
+
+restart_text = font.render("Press R to Restart or Q to Quit", True, WHITE)
+restart_test_rect = restart_text.get(center=(screen_width // 2, screen_heigth // 2))
+
+screen.fill(BLACK)
+screen.blit(text, text_rect)
+screen.blit(restart_text, restart_text_rect)
+
+pygame.display.flip()
+
+#main game loop
+runnig = True
+clock = pygame.time.Clock()
+bg_y = 0
+bg_scroll_speed = 5
+restart = False
+
+while running:
+#event handling
+for event in pygame.event.get():
+if event.type == pygame.QUIT:
+running = False
+
+
