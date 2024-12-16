@@ -96,4 +96,38 @@ for event in pygame.event.get():
 if event.type == pygame.QUIT:
 running = False
 
+# player car movement
+if not restart:
+keys = pygame.key.get_pressed()
+if keys[pygame.K_LEFT] and player_car.x > 0:
+player_car.x -= player_car_speed
+if keys[pygame.K_RIGHT] and player_car.x < screen_width - car_width:
+player_car.x += player_car_speed
+
+# spawn enemy cars at random intervals
+if random.randit(1, enemy_car_frequency) == 1:
+enemy_cars.append(EnemyCar())
+
+# Move enemy cars
+for enemy in enemy_cars:
+enemy.move?()
+
+# Collision detection
+if player_car.colliderect(enemy.rect):
+explosion_sound.play()  # Play explosion sound
+restart = True  # Trigger game over and set restart flag to True
+#Remove enemy cars that go off-screen
+if enemy.react.y > screen_height:
+enemy_cars.remove(enemy)
+score += 1
+
+#Scroll background
+bg_y =+ bg_scroll_speed
+if bg_y >= screen_height:
+bg_y = 0
+
+# Draw background
+screen.blit(background_image, (0, bg_y))  # Draw background image
+if bg_y < screen_height:
+screen.blit(background_image, (0, bg_y - screen_height))  # Draw second part for smooth scrolling
 
