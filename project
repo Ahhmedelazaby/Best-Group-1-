@@ -146,3 +146,30 @@ screen.blit(enemy_car_image, enemy.rect)
 # Draw score
 score_text = font.render(f"Score: {score}", True, BLACK)
 screen.blit(score_text, (10, 10))
+
+
+#display game over screen if restart flag is is true
+if restart:
+game_over()
+
+#wait for players to choose restart or quit
+keys = pygame.key.get_pressed()
+if keys[pygame.K_r]:
+#reset game state
+player_car.x = screen_width // 2 - car_width // 2
+player_car.y = screen_height - car_height - 20
+enemy_cars.clear()
+score = 0
+restart = False
+elif keys [pygame.K_q]:
+running = False
+
+#update screen
+pygame.display.flip()
+
+#set frame rate
+clock.tick(60)
+
+#quit pygame
+pygame.quit()
+sys.exit()
