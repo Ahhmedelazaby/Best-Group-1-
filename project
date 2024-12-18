@@ -23,6 +23,25 @@ RED = (255, 0, 0)
 GRAY = (169, 169, 169)
 
 #cars dimensions and speed 
+car_width = 50
+
+car_height = 90
+player_car_x = screen_width // 2 - car_width // 2
+player_car_y = screen_height - car_height - 20
+player_car_speed = 5
+
+enemy_car_width = 50
+enemy_car_height = 90
+enemy_car_speed = 5
+enemy_car_frequency = 88
+
+#score
+score = 0
+font = pygame.font.SysFont('Arial', 30)
+
+#images
+player_car_image = pygame.image.load('ahmedwalidplayer_car.png.jpg')
+player_car_image = pygame.transform.scale(player_car_image, (car_width, car_height))
 
 enemy_car_image = pygame.image.load('enemy_page-0001.jpg') 
 enemy_car_image = pygame.transform.scale(enemy_car_image, (enemy_car_width, enemy_car_height))
