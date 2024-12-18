@@ -1,4 +1,13 @@
+import pygame
+import random
+import sys
+from pygame import mixer
 
+# Initialize pygame
+pygame.init()
+
+# Set up the screen
+screen_width = 400
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Car Racing Game")
