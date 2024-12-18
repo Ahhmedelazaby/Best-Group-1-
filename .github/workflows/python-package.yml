@@ -22,7 +22,21 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 GRAY = (169, 169, 169)
 
+# Define car and enemy car properties
+car_width = 50
+car_height = 90
+player_car_x = screen_width // 2 - car_width // 2
+player_car_y = screen_height - car_height - 20
+player_car_speed = 5
 
+enemy_car_width = 50
+enemy_car_height = 90
+enemy_car_speed = 5
+enemy_car_frequency = 88  # Frequency at which enemy cars spawn
+
+# Define score and font
+score = 0
+font = pygame.font.SysFont('Arial', 30)
 
 # Load images
 player_car_image = pygame.image.load('project/ahmedwalidplayer_car.png.jpg')  # Replace with your image file
