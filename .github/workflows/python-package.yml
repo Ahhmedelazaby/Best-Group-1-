@@ -137,7 +137,20 @@ while running:
         if bg_y < screen_height:
             screen.blit(background_image, (0, bg_y - screen_height))  # Draw second part for smooth scrolling
 
-       
+        # Draw player car
+        screen.blit(player_car_image, player_car)
+
+        # Draw enemy cars
+        for enemy in enemy_cars:
+            screen.blit(enemy_car_image, enemy.rect)
+
+        # Draw score
+        score_text = font.render(f"Score: {score}", True, BLACK)
+        screen.blit(score_text, (10, 10))
+
+    # Display game over screen if restart flag is True
+    if restart:
+        game_over()
 
         # Wait for player to choose restart or quit
         keys = pygame.key.get_pressed()
