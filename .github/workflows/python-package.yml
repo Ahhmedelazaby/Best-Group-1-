@@ -39,13 +39,13 @@ score = 0
 font = pygame.font.SysFont('Arial', 30)
 
 # Load images
-player_car_image = pygame.image.load('project/ahmedwalidplayer_car.png.jpg')  # Replace with your image file
+player_car_image = pygame.image.load('project/ahmedwalidplayer_car.png.jpg')  
 player_car_image = pygame.transform.scale(player_car_image, (car_width, car_height))
 
-enemy_car_image = pygame.image.load('project/enemy_page-0001.jpg')  # Replace with your image file
+enemy_car_image = pygame.image.load('project/enemy_page-0001.jpg')  
 enemy_car_image = pygame.transform.scale(enemy_car_image, (enemy_car_width, enemy_car_height))
 
-background_image = pygame.image.load('project/OIP.jpg')  # Replace with your background image
+background_image = pygame.image.load('project/OIP.jpg')  
 background_image = pygame.transform.scale(background_image, (screen_width, screen_height))
 
 # Load explosion sound
