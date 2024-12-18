@@ -164,12 +164,4 @@ while running:
         elif keys[pygame.K_q]:
             running = False
 
-    # Update screen
-    pygame.display.flip()
-
-    # Set frame rate
-    clock.tick(60)
-
-# Quit pygame
-pygame.quit()
-sys.exit()
+    
