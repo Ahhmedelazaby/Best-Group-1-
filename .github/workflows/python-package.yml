@@ -49,7 +49,7 @@ background_image = pygame.image.load('project/OIP.jpg')
 background_image = pygame.transform.scale(background_image, (screen_width, screen_height))
 
 # Load explosion sound
-# # Replace with your explosion sound file
+#Replace with your explosion sound file
 
 # Create the player's car object
 player_car = pygame.Rect(player_car_x, player_car_y, car_width, car_height)
@@ -88,7 +88,7 @@ running = True
 clock = pygame.time.Clock()
 
 
-    def reset(self):
+def reset(self):
         self.rect.y = -enemy_car_height
         self.rect.x = random.randint(0, screen_width - enemy_car_width)
 bg_y = 0
