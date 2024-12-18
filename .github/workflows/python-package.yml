@@ -107,25 +107,7 @@ while running:
         if keys[pygame.K_LEFT] and player_car.x > 0:
             player_car.x -= player_car_speed
         if keys[pygame.K_RIGHT] and player_car.x < screen_width - car_width:
-            player_car.x += player_car_speed
-
-        # Spawn enemy cars at random intervals
-        if random.randint(1, enemy_car_frequency) == 1:
-            enemy_cars.append(EnemyCar())
-
-        # Move enemy cars
-        for enemy in enemy_cars:
-            enemy.move()
-
-            # Collision detection
-            if player_car.colliderect(enemy.rect):
-                explosion_sound.play()  # Play explosion sound
-                restart = True  # Trigger game over and set restart flag to True
-
-            # Remove enemy cars that go off-screen
-            if enemy.rect.y > screen_height:
-                enemy_cars.remove(enemy)
-                score += 1
+            
 
         # Scroll background
         bg_y += bg_scroll_speed
