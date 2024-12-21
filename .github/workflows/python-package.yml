@@ -3,10 +3,10 @@ import random
 import sys
 from pygame import mixer
 
-# Initialize pygame
+
 pygame.init()
 
-# Set up the screen
+#window
 screen_width = 400
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
@@ -15,14 +15,14 @@ pygame.display.set_caption("Car Racing Game")
 mixer.music.load('project/UA7PCjGMC5Fb.128.mp3')
 mixer.music.play(-1)
 
-# colors
+#colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 GRAY = (169, 169, 169)
 
-# enemy's car
+#enemy car
 car_width = 50
 car_height = 90
 player_car_x = screen_width // 2 - car_width // 2
@@ -34,11 +34,11 @@ enemy_car_height = 90
 enemy_car_speed = 5
 enemy_car_frequency = 88  # respawn
 
-# Define score and font
+#score
 score = 0
 font = pygame.font.SysFont('Arial', 30)
 
-# Load images
+#images
 player_car_image = pygame.image.load('project/ahmedwalidplayer_car.png.jpg')  
 player_car_image = pygame.transform.scale(player_car_image, (car_width, car_height))
 
@@ -48,16 +48,15 @@ enemy_car_image = pygame.transform.scale(enemy_car_image, (enemy_car_width, enem
 background_image = pygame.image.load('project/OIP.jpg')  
 background_image = pygame.transform.scale(background_image, (screen_width, screen_height))
 
-# Load explosion sound
-#Replace with your explosion sound file
 
-# Create the player's car object
+
+
 player_car = pygame.Rect(player_car_x, player_car_y, car_width, car_height)
 
-# List to hold enemy cars
+
 enemy_cars = []
 
-# Enemy car class
+#enemy car 
 class EnemyCar:
     def __init__(self):
         self.x = random.randint(0, screen_width - enemy_car_width)
@@ -68,9 +67,9 @@ class EnemyCar:
     def move(self):
         self.rect.y += self.speed
 
-# Function to handle game over screen
+#game over screen
 def game_over():
-    font = pygame.font.SysFont("arial", 50)
+    font = pygame.font.SysFont("arial", 25)
     text = font.render("GAME OVER", True, RED)
     text_rect = text.get_rect(center=(screen_width // 2, screen_height // 3))
     
@@ -83,7 +82,7 @@ def game_over():
 
     pygame.display.flip()
 
-# Main game loop
+#main game loop
 running = True
 clock = pygame.time.Clock()
 
@@ -96,12 +95,12 @@ bg_scroll_speed = 5
 restart = False
 
 while running:
-    # Event handling
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    # Player car movement
+   
     if not restart:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and player_car.x > 0:
@@ -110,53 +109,54 @@ while running:
 
             player_car.x += player_car_speed
             
-        # Spawn enemy cars at random intervals
+        #random enemy cars 
         if random.randint(1, enemy_car_frequency) == 1:
             enemy_cars.append(EnemyCar())
 
-        # Move enemy cars
+        
         for enemy in enemy_cars:
             enemy.move()
 
-            # Collision detection
+            #collision detection
             if player_car.colliderect(enemy.rect):
-                explosion_sound.play()  # Play explosion sound
-                restart = True  # Trigger game over and set restart flag to True
+                mixer.music.load('/Users/arthuranelli/Documents/Image-Line/FL Studio/Projects/Project_1/crashgood.f.wav')
+                mixer.music.play(-1)
+                restart = True  
 
-            # Remove enemy cars that go off-screen
+            #enemy cars that go off-screen
             if enemy.rect.y > screen_height:
                 enemy_cars.remove(enemy)
                 score += 1
 
-        # Scroll background
+
         bg_y += bg_scroll_speed
         if bg_y >= screen_height:
             bg_y = 0
             
-        # Draw background
+        
         screen.blit(background_image, (0, bg_y))  # Draw background image
         if bg_y < screen_height:
             screen.blit(background_image, (0, bg_y - screen_height))  # Draw second part for smooth scrolling
 
-        # Draw player car
+        #player car
         screen.blit(player_car_image, player_car)
 
-        # Draw enemy cars
+        #enemy cars
         for enemy in enemy_cars:
             screen.blit(enemy_car_image, enemy.rect)
 
-        # Draw score
+        #score
         score_text = font.render(f"Score: {score}", True, BLACK)
         screen.blit(score_text, (10, 10))
 
-    # Display game over screen if restart flag is True
+    #when game over 
     if restart:
-        game_over()
+         game_over()
 
-        # Wait for player to choose restart or quit
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_r]:
-            # Reset game state
+        
+         keys = pygame.key.get_pressed()
+         if keys[pygame.K_r]:
+        
             player_car.x = screen_width // 2 - car_width // 2
             player_car.y = screen_height - car_height - 20
             enemy_cars.clear()
@@ -165,13 +165,13 @@ while running:
         elif keys[pygame.K_q]:
             running = False
 
-# Update screen
+#screen
     pygame.display.flip()
 
-    # Set frame rate
+    #fps
     clock.tick(60)
 
-# Quit pygame
+
 pygame.quit()
 sys.exit()
 
