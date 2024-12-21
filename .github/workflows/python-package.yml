@@ -162,7 +162,7 @@ while running:
             enemy_cars.clear()
             score = 0
             restart = False
-        elif keys[pygame.K_q]:
+         elif keys[pygame.K_q]:
             running = False
 
 #screen
