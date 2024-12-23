@@ -3,7 +3,7 @@ import random
 import sys
 from pygame import mixer
 
-
+# Initialize pygame
 pygame.init()
 
 #window
@@ -11,6 +11,8 @@ screen_width = 400
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Car Racing Game")
+
+#the bg audio
 
 mixer.music.load('project/UA7PCjGMC5Fb.128.mp3')
 mixer.music.play(-1)
@@ -48,9 +50,7 @@ enemy_car_image = pygame.transform.scale(enemy_car_image, (enemy_car_width, enem
 background_image = pygame.image.load('project/OIP.jpg')  
 background_image = pygame.transform.scale(background_image, (screen_width, screen_height))
 
-
-
-
+#creating our player's car object
 player_car = pygame.Rect(player_car_x, player_car_y, car_width, car_height)
 
 
@@ -82,32 +82,48 @@ def game_over():
 
     pygame.display.flip()
 
-#main game loop
-running = True
+# Main game loop
+running = True 
 clock = pygame.time.Clock()
 
-
-def reset(self):
-        self.rect.y = -enemy_car_height
-        self.rect.x = random.randint(0, screen_width - enemy_car_width)
 bg_y = 0
 bg_scroll_speed = 5
 restart = False
 
-while running:
+# Game over function
+def game_over():
+    game_over_text = font.render("LOSER! press R to restart or Q to quit", True, RED)
+    screen.blit(game_over_text, (screen_width // 11, screen_height // 2))
 
+while running:
+    # Event handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-   
-    if not restart:
+    # Fill the screen with black during the game over screen
+    if restart:
+        screen.fill(BLACK)
+        game_over()
+        
+        # Wait for player to choose restart or quit
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT] and player_car.x > 0:
-            player_car.x -= player_car_speed
-        if keys[pygame.K_RIGHT] and player_car.x < screen_width - car_width:
+        if keys[pygame.K_r]:
+            # Reset game state
+            my_car.x = screen_width // 2 - my_car_width // 2
+            enemy_cars.clear()
+            score = 0
+            restart = False
+        elif keys[pygame.K_q]:
+            running = False
+    else:
+        # Player car movement
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT] and my_car.x > 0:
+            my_car.x -= player_car_speed
+        if keys[pygame.K_RIGHT] and my_car.x < screen_width - my_car_width:
+            my_car.x += player_car_speed
 
-            player_car.x += player_car_speed
             
         #random enemy cars 
         if random.randint(1, enemy_car_frequency) == 1:
@@ -117,23 +133,19 @@ while running:
         for enemy in enemy_cars:
             enemy.move()
 
-            #collision detection
-            if player_car.colliderect(enemy.rect):
-                mixer.music.load('/Users/arthuranelli/Documents/Image-Line/FL Studio/Projects/Project_1/crashgood.f.wav')
-                mixer.music.play(-1)
-                restart = True  
 
             #enemy cars that go off-screen
-            if enemy.rect.y > screen_height:
+        if enemy.rect.y > screen_height:
                 enemy_cars.remove(enemy)
                 score += 1
 
-
+        #scrolling the bg
+        
         bg_y += bg_scroll_speed
         if bg_y >= screen_height:
             bg_y = 0
             
-        
+        #drawing the bg
         screen.blit(background_image, (0, bg_y))  # Draw background image
         if bg_y < screen_height:
             screen.blit(background_image, (0, bg_y - screen_height))  # Draw second part for smooth scrolling
@@ -149,26 +161,10 @@ while running:
         score_text = font.render(f"Score: {score}", True, BLACK)
         screen.blit(score_text, (10, 10))
 
-    #when game over 
-    if restart:
-         game_over()
-
-        
-         keys = pygame.key.get_pressed()
-         if keys[pygame.K_r]:
-        
-            player_car.x = screen_width // 2 - car_width // 2
-            player_car.y = screen_height - car_height - 20
-            enemy_cars.clear()
-            score = 0
-            restart = False
-         elif keys[pygame.K_q]:
-            running = False
-
-#screen
+    #this line is for updating our screen
     pygame.display.flip()
 
-    #fps
+    # setting the fps
     clock.tick(60)
 
 
