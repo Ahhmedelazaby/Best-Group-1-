@@ -24,25 +24,25 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 GRAY = (169, 169, 169)
 
-#enemy car
-car_width = 50
-car_height = 90
-player_car_x = screen_width // 2 - car_width // 2
-player_car_y = screen_height - car_height - 20
+my_car_width = 50
+my_car_height = 90
+my_car = screen_width // 2 - my_car_width // 2
+enemy_car = screen_height - my_car_height - 20
 player_car_speed = 5
 
 enemy_car_width = 50
 enemy_car_height = 90
 enemy_car_speed = 5
-enemy_car_frequency = 88  # respawn
+enemy_car_frequency = 88  # how often they respawn
+
 
 #score
 score = 0
-font = pygame.font.SysFont('Arial', 30)
+font = pygame.font.SysFont('Arial', 20)
 
 #images
-player_car_image = pygame.image.load('project/ahmedwalidplayer_car.png.jpg')  
-player_car_image = pygame.transform.scale(player_car_image, (car_width, car_height))
+my_car_image = pygame.image.load('project/ahmedwalidplayer_car.png.jpg')  
+my_car_image = pygame.transform.scale(my_car_image, (my_car_width, my_car_height))
 
 enemy_car_image = pygame.image.load('project/enemy_page-0001.jpg')  
 enemy_car_image = pygame.transform.scale(enemy_car_image, (enemy_car_width, enemy_car_height))
@@ -51,7 +51,7 @@ background_image = pygame.image.load('project/OIP.jpg')
 background_image = pygame.transform.scale(background_image, (screen_width, screen_height))
 
 #creating our player's car object
-player_car = pygame.Rect(player_car_x, player_car_y, car_width, car_height)
+my_car = pygame.Rect(my_car, enemy_car, my_car_width, my_car_height)
 
 
 enemy_cars = []
@@ -130,14 +130,18 @@ while running:
             enemy_cars.append(EnemyCar())
 
         
-        for enemy in enemy_cars:
+        # Move enemy cars
+        for enemy in enemy_cars[:]:
             enemy.move()
 
+            # Collision detection
+            if my_car.colliderect(enemy.rect):
+                restart = True
 
-            #enemy cars that go off-screen
-        if enemy.rect.y > screen_height:
+            # Remove enemy cars that go off-screen
+            if enemy.rect.y > screen_height:
                 enemy_cars.remove(enemy)
-                score += 1
+                score += 1  # Increase score when enemy car goes off-screen
 
         #scrolling the bg
         
@@ -151,7 +155,7 @@ while running:
             screen.blit(background_image, (0, bg_y - screen_height))  # Draw second part for smooth scrolling
 
         #player car
-        screen.blit(player_car_image, player_car)
+        screen.blit(my_car_image, my_car)
 
         #enemy cars
         for enemy in enemy_cars:
